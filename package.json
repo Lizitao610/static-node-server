@@ -1,0 +1,26 @@
+{
+  "name": "static-node-server",
+  "version": "1.0.2",
+  "main": "dist/index.js",
+  "bin": {
+    "static-server": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "files": [
+    "dist",
+    "public"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^4.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^13.1.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Lizitao610/static-node-server.git"
+  }
+}
