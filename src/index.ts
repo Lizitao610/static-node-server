@@ -20,7 +20,7 @@ class staticNodeServer {
             pathname = '/index.html'
         }
         pathname = pathname || ''
-        const fullPath = p.resolve('.', this.fileDir || '', pathname.slice(1))
+        const fullPath = p.resolve('.', this.fileDir, pathname.slice(1))
         fs.readFile(fullPath, (err, data) => {
             if (err) {
                 if (err.errno === -4058) {
