@@ -3,7 +3,7 @@
 `npm i static-node-server`
 #### 启动服务
 `static-server`
-#### 指定托管的文件目录
+#### 指定文件目录
 `static-server -f <fileDir>`
-#### 指定监听端口，默认为8888
+#### 指定监听端口，默认为8080
 `static-server -p <port>`
