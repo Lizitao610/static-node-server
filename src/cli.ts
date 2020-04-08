@@ -11,14 +11,20 @@ program
 program
   .option('-f, --file-dir <fileDir>', 'specify file directory')
   .option('-p, --port <port>', 'specify the port, default is 8080')
+  .option('-H, --header <header>', 'specify additional headers')
 
 program.parse(process.argv);
 
-const fileDir = program.fileDir || ''
-const port = program.port || '8080'
+let { fileDir = '', port = '8080', header = null } = program
+
+try {
+  header = header && JSON.parse(header)
+} catch (err) {
+  throw new Error('-H 参数格式错误')
+}
 
 const server = http.createServer();
-const fileServer = new staticNodeServer(fileDir)
+const fileServer = new staticNodeServer(fileDir, header)
 
 server.on('request', (request: IncomingMessage, response: ServerResponse) => {
   fileServer.serve(request, response)

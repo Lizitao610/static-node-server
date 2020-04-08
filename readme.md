@@ -7,3 +7,6 @@
 `static-server -f <fileDir>`
 #### 指定监听端口，默认为8080
 `static-server -p <port>`
+#### 制定响应头
+`static-server -H <headerConfig>`
+格式示例：`static-server -H '{\"Cache-Control\": \"max-age=2592000,public\"}'`
