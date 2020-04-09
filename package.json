@@ -1,6 +1,6 @@
 {
   "name": "static-node-server",
-  "version": "1.0.4",
+  "version": "1.0.7",
   "main": "dist/index.js",
   "bin": {
     "static-server": "dist/cli.js"

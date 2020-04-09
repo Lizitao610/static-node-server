@@ -23,17 +23,17 @@ class staticNodeServer {
         }
         pathname = pathname || ''
         const fullPath = p.resolve('.', this.fileDir, pathname.slice(1))
-        fs.readFile(fullPath, (err, data) => {
-            if (err) {
-                if (err.errno === -4058) {
-                    sendResposeText(response, '文件资源不存在', 404)
-                } else if (err.errno === -4068) {
-                    sendResposeText(response, '无权限访问目录', 403)
+        fs.stat(fullPath, (err, stats) => {
+            if (stats && stats.isDirectory()) {
+                // 不支持访问一个目录
+                return sendResposeText(response, '无权限访问目录', 403)
+            } else if (err) {
+                if (err.code === 'ENOENT') {
+                    return sendResposeText(response, '文件资源不存在', 404)
                 } else {
-                    sendResposeText(response, '服务器错误', 500)
+                    return sendResposeText(response, '服务器错误', 500)
                 }
             } else {
-                // response.setHeader('Cache-Control', 'max-age=2592000,public')
                 if (typeof this.header === 'object') {
                     for (const key in this.header) {
                         if (this.header.hasOwnProperty(key)) {
@@ -41,7 +41,8 @@ class staticNodeServer {
                         }
                     }
                 }
-                response.end(data);
+                const stream = fs.createReadStream(fullPath)
+                stream.pipe(response)
             }
         });
     }
